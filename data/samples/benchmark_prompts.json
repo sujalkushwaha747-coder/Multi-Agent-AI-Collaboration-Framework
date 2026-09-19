@@ -1,0 +1,27 @@
+[
+  {
+    "category": "academic",
+    "prompt": "Explain the concept of Retrieval-Augmented Generation and its advantages."
+  },
+  {
+    "category": "academic",
+    "prompt": "Write a concise literature review on Large Language Models."
+  },
+  {
+    "category": "academic",
+    "prompt": "Compare supervised learning and unsupervised learning."
+  },
+  {
+    "category": "technical",
+    "prompt": "Design a high-level architecture for an online library management system."
+  },
+  {
+    "category": "technical",
+    "prompt": "Create an SRS outline for an online examination system."
+  },
+  {
+    "category": "technical",
+    "prompt": "Explain how to design a REST API for a student management system."
+  }
+]
+
