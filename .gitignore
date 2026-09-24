@@ -13,6 +13,12 @@ frontend/coverage/
 *.tsbuildinfo
 frontend/vite.config.js
 frontend/vite.config.d.ts
+tmp/
+output/
+docs/build_expanded_research_paper.py
+docs/build_updated_results_paper.py
+docs/research_results_*.json
+docs/research_run_snapshot.json
 data/uploads/*
 data/faiss/*
 !data/uploads/.gitkeep

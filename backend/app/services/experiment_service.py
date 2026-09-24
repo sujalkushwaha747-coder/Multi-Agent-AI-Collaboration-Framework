@@ -31,9 +31,27 @@ class ExperimentService:
         evaluator: EvaluationEngine | None = None,
     ):
         self.settings = settings or get_settings()
-        self.single_agent = single_agent or SingleAgentService(settings=self.settings)
-        self.multi_agent = multi_agent or MultiAgentService(settings=self.settings)
-        self.evaluator = evaluator or EvaluationEngine(self.settings)
+        self._single_agent = single_agent
+        self._multi_agent = multi_agent
+        self._evaluator = evaluator
+
+    @property
+    def single_agent(self) -> SingleAgentService:
+        if self._single_agent is None:
+            self._single_agent = SingleAgentService(settings=self.settings)
+        return self._single_agent
+
+    @property
+    def multi_agent(self) -> MultiAgentService:
+        if self._multi_agent is None:
+            self._multi_agent = MultiAgentService(settings=self.settings)
+        return self._multi_agent
+
+    @property
+    def evaluator(self) -> EvaluationEngine:
+        if self._evaluator is None:
+            self._evaluator = EvaluationEngine(self.settings)
+        return self._evaluator
 
     def create(
         self,

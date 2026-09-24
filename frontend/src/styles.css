@@ -654,6 +654,16 @@ textarea {
   background: var(--green);
 }
 
+.stageTitle {
+  display: grid;
+  gap: 2px;
+}
+
+.stageTitle span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .timelineItem p {
   color: var(--muted);
 }
