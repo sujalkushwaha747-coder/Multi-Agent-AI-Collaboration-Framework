@@ -1,5 +1,16 @@
 .DS_Store
 .env
+.env.*
+!.env.example
+!.env.production.example
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.pdf
+*.docx
+*.pptx
 *.pyc
 __pycache__/
 .pytest_cache/

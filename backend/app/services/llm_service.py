@@ -50,6 +50,23 @@ class OllamaLLMService:
             groq["error"] = "GROQ_API_KEY is not configured."
 
         ollama = {"available": False, "configured_model": self.settings.ollama_model}
+        if self._can_use_ollama():
+            ollama = await self._ollama_health()
+        else:
+            ollama["disabled"] = True
+        selected = None
+        if self._should_try_groq() and groq["available"] and groq.get("model_available"):
+            selected = "groq"
+        elif self._can_use_ollama() and ollama["available"] and ollama.get("model_available"):
+            selected = "ollama"
+        return {
+            "provider_mode": self.settings.llm_provider,
+            "selected_provider": selected,
+            "groq": groq,
+            "ollama": ollama,
+        }
+
+    async def _ollama_health(self) -> dict:
         try:
             async with httpx.AsyncClient(timeout=5.0) as client:
                 response = await client.get(f"{self.settings.ollama_base_url}/api/tags")
@@ -69,13 +86,7 @@ class OllamaLLMService:
                 "model_available": False,
                 "error": str(exc),
             }
-        selected = "groq" if self._should_try_groq() and groq["available"] else "ollama"
-        return {
-            "provider_mode": self.settings.llm_provider,
-            "selected_provider": selected,
-            "groq": groq,
-            "ollama": ollama,
-        }
+        return ollama
 
     async def generate(
         self,
@@ -94,12 +105,19 @@ class OllamaLLMService:
                     max_tokens=max_tokens,
                 )
             except Exception as exc:
-                if self.settings.llm_provider == "groq":
-                    last_error = exc
-                else:
-                    last_error = exc
+                last_error = exc
         else:
             last_error = None
+
+        if not self._can_use_ollama():
+            if last_error:
+                raise LLMUnavailableError(
+                    f"Groq could not generate a response: {last_error}. "
+                    "Ollama fallback is disabled. Check the Groq key, model and rate limits."
+                ) from last_error
+            raise LLMUnavailableError(
+                "GROQ_API_KEY is not configured and Ollama fallback is disabled."
+            )
 
         try:
             return await self._generate_ollama(
@@ -122,6 +140,9 @@ class OllamaLLMService:
             self.settings.llm_provider in {"auto", "groq"}
             and self.settings.groq_api_key
         )
+
+    def _can_use_ollama(self) -> bool:
+        return self.settings.llm_provider == "ollama" or self.settings.ollama_fallback_enabled
 
     async def _generate_groq(
         self,

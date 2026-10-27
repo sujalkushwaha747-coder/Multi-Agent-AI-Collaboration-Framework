@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -7,6 +8,21 @@ from app.core.config import get_settings
 from app.services.llm_service import OllamaLLMService
 
 router = APIRouter(prefix="/health", tags=["health"])
+
+
+@router.get("/live")
+def liveness() -> dict:
+    return {"status": "ok"}
+
+
+@router.get("/ready")
+def readiness(db: Session = Depends(db_session)):
+    """Hosting probe: check storage without calling an external LLM provider."""
+    try:
+        db.execute(text("SELECT 1"))
+    except Exception:
+        return JSONResponse(status_code=503, content={"status": "unavailable"})
+    return {"status": "ok", "database": {"available": True}}
 
 
 @router.get("")

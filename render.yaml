@@ -1,0 +1,38 @@
+# Paid backend and persistent disk; importing this Blueprint does not deploy Vercel.
+services:
+  - type: web
+    name: multi-agent-backend
+    runtime: python
+    plan: standard
+    buildCommand: bash scripts/build_backend_cloud.sh
+    startCommand: bash scripts/start_backend_production.sh
+    healthCheckPath: /api/health/ready
+    disk:
+      name: project-data
+      mountPath: /var/data
+      sizeGB: 3
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: LLM_PROVIDER
+        value: groq
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-20b
+      - key: OLLAMA_FALLBACK_ENABLED
+        value: "false"
+      - key: DATABASE_URL
+        value: sqlite:////var/data/shodhai.db
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: FAISS_INDEX_PATH
+        value: /var/data/faiss
+      - key: HF_HOME
+        value: /var/data/huggingface
+      - key: EMBEDDING_PROVIDER
+        value: sentence-transformers
+      - key: CORS_ORIGINS
+        sync: false
+      - key: TOKENIZERS_PARALLELISM
+        value: "false"

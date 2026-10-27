@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     ollama_max_tokens: int = 2048
     ollama_timeout_seconds: float = 120.0
     ollama_retries: int = 1
+    ollama_fallback_enabled: bool = True
 
     groq_api_key: str | None = None
     groq_base_url: str = "https://api.groq.com/openai/v1"

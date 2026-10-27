@@ -7,6 +7,10 @@ ShodhAI is a full-stack academic research application for comparing two LLM syst
 
 Both systems receive the same prompt. The backend records execution time, retrieval context, generated responses, agent metadata, and transparent evaluation metrics before the frontend displays the comparison side by side.
 
+## Cloud deployment
+
+See [the deployment guide](docs/DEPLOYMENT.md) for the Render backend and Vercel frontend setup. The root `render.yaml` configures a paid backend with persistent SQLite/uploads/index storage, Groq inference, production startup and readiness checks. Import the frontend separately in Vercel with Root Directory `frontend` and set `VITE_API_BASE_URL` to the deployed backend URL ending in `/api`. API keys are entered in the hosting dashboard, not committed to Git.
+
 ## Problem Statement
 
 Complex academic and technical tasks often require research, planning, writing, review, and verification. A single LLM call may be faster, while a role-based multi-agent workflow may produce more complete or reliable outputs. ShodhAI evaluates this tradeoff with measured runs rather than assuming one architecture is always better.
@@ -72,20 +76,19 @@ Browser
 
 - Frontend: React, Vite, TypeScript, Recharts, Lucide icons.
 - Backend: Python, FastAPI, Pydantic, SQLAlchemy, Alembic.
-- LLM: Llama 3 through Ollama.
+- LLM: Groq-hosted models or Llama 3 through Ollama.
 - Orchestration: LangChain prompt templates and LangGraph StateGraph.
 - Retrieval: FAISS with sentence-transformer embeddings when available; deterministic hashing fallback for local/offline development.
-- Database: MySQL.
+- Database: SQLAlchemy with MySQL support and SQLite for local/cloud single-instance deployments.
 - Testing: Pytest, Vitest, React Testing Library.
 - DevOps: Docker and docker-compose.
 
 ## Requirements
 
 - Python 3.11 or 3.12 recommended.
-- Node.js 20+ recommended.
-- MySQL 8+.
-- Ollama running locally.
-- Llama model pulled in Ollama, for example `llama3:8b`.
+- Node.js 22.12+ in the 22.x release line recommended.
+- MySQL 8+ or SQLite.
+- A Groq API key, or a reachable Ollama server with the configured model pulled (for example `llama3:8b`).
 
 ## Installation
 
