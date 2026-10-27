@@ -10,7 +10,7 @@ from app.agents.reviewer import ReviewerAgent, parse_revision_required
 from app.agents.verifier import VerifierAgent
 from app.agents.writer import WriterAgent
 from app.core.config import Settings, get_settings
-from app.core.exceptions import ShodhAIError
+from app.core.exceptions import FrameworkError
 from app.retrieval.service import RetrievalService
 from app.services.llm_service import OllamaLLMService
 
@@ -99,7 +99,7 @@ class MultiAgentService:
         }
         final_state = await graph.ainvoke(initial_state)
         if final_state.get("errors"):
-            raise ShodhAIError("; ".join(final_state["errors"]), error_type="agent_workflow_failure")
+            raise FrameworkError("; ".join(final_state["errors"]), error_type="agent_workflow_failure")
         agent_runs = final_state.get("agent_runs", [])
         model_name = self.settings.ollama_model
         if agent_runs:
@@ -125,7 +125,7 @@ class MultiAgentService:
         try:
             from langgraph.graph import END, StateGraph
         except ImportError as exc:
-            raise ShodhAIError(
+            raise FrameworkError(
                 "LangGraph is not installed. Install backend requirements before running the multi-agent workflow.",
                 error_type="langgraph_missing",
             ) from exc

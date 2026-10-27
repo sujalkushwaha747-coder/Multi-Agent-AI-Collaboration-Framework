@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 
 
-class ShodhAIError(Exception):
+class FrameworkError(Exception):
     """Base application error with a user-safe message."""
 
     def __init__(self, message: str, *, error_type: str = "application_error"):
@@ -10,22 +10,22 @@ class ShodhAIError(Exception):
         self.error_type = error_type
 
 
-class LLMUnavailableError(ShodhAIError):
+class LLMUnavailableError(FrameworkError):
     def __init__(self, message: str):
         super().__init__(message, error_type="llm_unavailable")
 
 
-class RetrievalError(ShodhAIError):
+class RetrievalError(FrameworkError):
     def __init__(self, message: str):
         super().__init__(message, error_type="retrieval_error")
 
 
-class EvaluationError(ShodhAIError):
+class EvaluationError(FrameworkError):
     def __init__(self, message: str):
         super().__init__(message, error_type="evaluation_error")
 
 
-class InvalidUploadError(ShodhAIError):
+class InvalidUploadError(FrameworkError):
     def __init__(self, message: str):
         super().__init__(message, error_type="invalid_upload")
 

@@ -1,4 +1,4 @@
-"""Initial ShodhAI schema.
+"""Initial Multi Agent AI Collaboration Framework schema.
 
 Revision ID: 0001_initial_schema
 Revises:

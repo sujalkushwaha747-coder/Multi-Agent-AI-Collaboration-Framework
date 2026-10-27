@@ -1,10 +1,12 @@
+import { APP_NAME } from "../branding";
+
 export function Methodology() {
   return (
     <main className="pageShell">
       <header className="pageHeader">
         <div>
           <p className="eyebrow">About / Methodology</p>
-          <h1>ShodhAI</h1>
+          <h1>{APP_NAME}</h1>
           <p>
             A comparative framework for evaluating Single-Agent and Multi-Agent Large
             Language Model systems.
@@ -16,7 +18,7 @@ export function Methodology() {
         <article className="methodPanel">
           <h2>Purpose</h2>
           <p>
-            ShodhAI executes the same academic or technical prompt through two different LLM
+            {APP_NAME} executes the same academic or technical prompt through two different LLM
             architectures and compares the measured outputs.
           </p>
         </article>
@@ -46,7 +48,7 @@ export function Methodology() {
         <article className="methodPanel">
           <h2>Research integrity</h2>
           <p>
-            ShodhAI labels estimated scores and does not assume that Multi-Agent systems are
+            {APP_NAME} labels estimated scores and does not assume that Multi-Agent systems are
             always better. Results depend on prompts, references, retrieved documents, local
             hardware, and model behavior.
           </p>

@@ -51,7 +51,7 @@ describe("Dashboard", () => {
     vi.mocked(api.dashboardMetrics).mockResolvedValue([]);
 
     render(<Dashboard />);
-    expect(screen.getByText("Single-Agent vs Multi-Agent LLM Performance")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Multi Agent AI Collaboration Framework" })).toBeInTheDocument();
     await waitFor(() => expect(screen.getByText("No experiments yet")).toBeInTheDocument());
   });
 

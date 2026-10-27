@@ -56,7 +56,7 @@ class SingleAgentService:
             f"[Context {index + 1}] {item['text']}" for index, item in enumerate(context)
         )
         system_prompt = (
-            "You are the Single-Agent architecture in ShodhAI. Solve the user's task independently. "
+            "You are the Single-Agent architecture in the Multi Agent AI Collaboration Framework. Solve the user's task independently. "
             "Use retrieved context when it is relevant, state assumptions when evidence is unavailable, "
             "and do not simulate a multi-agent workflow."
         )

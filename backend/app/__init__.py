@@ -1,2 +1,2 @@
-"""ShodhAI backend package."""
+"""Multi Agent AI Collaboration Framework backend package."""
 

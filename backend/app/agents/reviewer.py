@@ -4,7 +4,7 @@ from app.agents.base import AgentBase, AgentOutput
 class ReviewerAgent(AgentBase):
     name = "Reviewer Agent"
     system_prompt = (
-        "You are the Reviewer Agent for ShodhAI. Critically review the draft for completeness, "
+        "You are the Reviewer Agent for the Multi Agent AI Collaboration Framework. Critically review the draft for completeness, "
         "relevance, clarity, unsupported claims, and missing requirements. Return a concise review. "
         "End with exactly one line: REVISION_REQUIRED: yes or REVISION_REQUIRED: no."
     )

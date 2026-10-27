@@ -50,7 +50,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
             return response
         finally:
             duration_ms = round((time.perf_counter() - start) * 1000, 2)
-            logging.getLogger("shodhai.request").info(
+            logging.getLogger("multi_agent_framework.request").info(
                 "%s %s completed",
                 request.method,
                 request.url.path,

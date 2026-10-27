@@ -2,7 +2,7 @@
 
 ## Project Title
 
-ShodhAI: A Comparative Framework for Evaluating Single-Agent and Multi-Agent Large Language Model Systems
+Multi Agent AI Collaboration Framework
 
 ## Project Type
 
@@ -33,7 +33,7 @@ Experimental and Comparative
 
 ## System Summary
 
-ShodhAI runs the same prompt through a Single-Agent LLM pipeline and a Multi-Agent LangGraph workflow. Both outputs are evaluated and displayed side by side. The project does not claim that Multi-Agent systems are always superior; it reports measured and labeled results for each experiment.
+Multi Agent AI Collaboration Framework runs the same prompt through a Single-Agent LLM pipeline and a Multi-Agent LangGraph workflow. Both outputs are evaluated and displayed side by side. The project does not claim that Multi-Agent systems are always superior; it reports measured and labeled results for each experiment.
 
 ## Multi-Agent Roles
 

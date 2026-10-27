@@ -6,6 +6,7 @@ import {
   History,
   Info
 } from "lucide-react";
+import { APP_NAME } from "../branding";
 
 export type PageKey =
   | "dashboard"
@@ -33,9 +34,9 @@ export function Sidebar({ active, onNavigate }: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="brandBlock">
-        <div className="brandMark">S</div>
+        <div className="brandMark" aria-hidden="true">MA</div>
         <div>
-          <strong>ShodhAI</strong>
+          <strong>{APP_NAME}</strong>
           <span>LLM Architecture Lab</span>
         </div>
       </div>

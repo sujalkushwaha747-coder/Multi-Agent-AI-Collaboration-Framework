@@ -4,7 +4,7 @@ from app.agents.base import AgentBase, AgentOutput
 class VerifierAgent(AgentBase):
     name = "Verifier Agent"
     system_prompt = (
-        "You are the Verifier Agent for ShodhAI. Verify consistency with evidence when available, "
+        "You are the Verifier Agent for the Multi Agent AI Collaboration Framework. Verify consistency with evidence when available, "
         "check the original requirements, identify unsupported factual claims, and produce the final verified response. "
         "Do not expose private reasoning."
     )

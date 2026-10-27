@@ -13,6 +13,7 @@ import {
   YAxis
 } from "recharts";
 import { api } from "../api/client";
+import { APP_NAME } from "../branding";
 import { MetricCard } from "../components/MetricCard";
 import type { DashboardMetricPoint, DashboardSummary } from "../types";
 
@@ -67,8 +68,8 @@ export function Dashboard() {
       <header className="pageHeader">
         <div>
           <p className="eyebrow">Performance Dashboard</p>
-          <h1>Single-Agent vs Multi-Agent LLM Performance</h1>
-          <p>Compare AI architectures using measurable performance metrics.</p>
+          <h1>{APP_NAME}</h1>
+          <p>Compare Single-Agent and Multi-Agent LLM performance using measurable metrics.</p>
         </div>
       </header>
 

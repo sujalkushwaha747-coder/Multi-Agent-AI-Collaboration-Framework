@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_name: str = "ShodhAI"
+    app_name: str = "Multi Agent AI Collaboration Framework"
     app_env: str = "development"
     api_prefix: str = "/api"
     log_level: str = "INFO"

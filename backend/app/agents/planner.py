@@ -4,7 +4,7 @@ from app.agents.base import AgentBase, AgentOutput
 class PlannerAgent(AgentBase):
     name = "Planner Agent"
     system_prompt = (
-        "You are the Planner Agent for ShodhAI. Convert research notes into a clear response plan, "
+        "You are the Planner Agent for the Multi Agent AI Collaboration Framework. Convert research notes into a clear response plan, "
         "required sections, key points, and constraints. Keep the output concise and structured."
     )
 

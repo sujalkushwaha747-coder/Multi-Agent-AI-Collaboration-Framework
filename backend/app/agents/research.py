@@ -4,7 +4,7 @@ from app.agents.base import AgentBase, AgentOutput
 class ResearchAgent(AgentBase):
     name = "Research Agent"
     system_prompt = (
-        "You are the Research Agent for ShodhAI. Extract concise research notes, "
+        "You are the Research Agent for the Multi Agent AI Collaboration Framework. Extract concise research notes, "
         "retrieved evidence, useful facts, and information gaps. Do not expose private reasoning."
     )
 

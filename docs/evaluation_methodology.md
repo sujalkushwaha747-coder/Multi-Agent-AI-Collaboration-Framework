@@ -1,6 +1,6 @@
 # Evaluation Methodology
 
-ShodhAI uses transparent scoring logic and labels estimated metrics. It avoids presenting estimated values as objective ground truth.
+Multi Agent AI Collaboration Framework uses transparent scoring logic and labels estimated metrics. It avoids presenting estimated values as objective ground truth.
 
 ## Accuracy
 
@@ -23,9 +23,9 @@ The score is 0-100.
 
 ## Hallucination Rate
 
-When evidence exists, ShodhAI estimates unsupported claims by checking whether substantive response sentences have low overlap with retrieved evidence.
+When evidence exists, Multi Agent AI Collaboration Framework estimates unsupported claims by checking whether substantive response sentences have low overlap with retrieved evidence.
 
-When no evidence exists, ShodhAI labels the score as estimated hallucination risk.
+When no evidence exists, Multi Agent AI Collaboration Framework labels the score as estimated hallucination risk.
 
 Lower is better.
 

@@ -1,6 +1,6 @@
-# ShodhAI: A Comparative Framework for Evaluating Single-Agent and Multi-Agent Large Language Model Systems
+# Multi Agent AI Collaboration Framework
 
-ShodhAI is a full-stack academic research application for comparing two LLM system architectures:
+Multi Agent AI Collaboration Framework is a full-stack academic research application for comparing two LLM system architectures:
 
 1. A Single-Agent LLM pipeline.
 2. A LangGraph-based Multi-Agent pipeline with Research, Planner, Writer, Reviewer, and Verifier agents.
@@ -15,7 +15,7 @@ See [the deployment guide](docs/DEPLOYMENT.md) for the Render backend and Vercel
 
 ## Problem Statement
 
-Complex academic and technical tasks often require research, planning, writing, review, and verification. A single LLM call may be faster, while a role-based multi-agent workflow may produce more complete or reliable outputs. ShodhAI evaluates this tradeoff with measured runs rather than assuming one architecture is always better.
+Complex academic and technical tasks often require research, planning, writing, review, and verification. A single LLM call may be faster, while a role-based multi-agent workflow may produce more complete or reliable outputs. Multi Agent AI Collaboration Framework evaluates this tradeoff with measured runs rather than assuming one architecture is always better.
 
 ## Objectives
 

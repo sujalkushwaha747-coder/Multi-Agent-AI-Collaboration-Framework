@@ -5,14 +5,14 @@ from fastapi.responses import JSONResponse
 
 from app.api.routes import benchmarks, dashboard, documents, experiments, health
 from app.core.config import get_settings
-from app.core.exceptions import ShodhAIError
+from app.core.exceptions import FrameworkError
 from app.core.logging import RequestLoggingMiddleware, configure_logging
 
 settings = get_settings()
 configure_logging(settings.log_level)
 
 app = FastAPI(
-    title="ShodhAI: A Comparative Framework for Evaluating Single-Agent and Multi-Agent Large Language Model Systems",
+    title=settings.app_name,
     version="1.0.0",
     docs_url="/api/docs",
     openapi_url="/api/openapi.json",
@@ -41,8 +41,8 @@ def ensure_runtime_dirs() -> None:
     settings.resolved_faiss_index_path.mkdir(parents=True, exist_ok=True)
 
 
-@app.exception_handler(ShodhAIError)
-async def shodhai_error_handler(_: Request, exc: ShodhAIError) -> JSONResponse:
+@app.exception_handler(FrameworkError)
+async def framework_error_handler(_: Request, exc: FrameworkError) -> JSONResponse:
     return JSONResponse(
         status_code=400,
         content={"detail": exc.message, "error_type": exc.error_type},

@@ -4,7 +4,7 @@ from app.agents.base import AgentBase, AgentOutput
 class WriterAgent(AgentBase):
     name = "Writer Agent"
     system_prompt = (
-        "You are the Writer Agent for ShodhAI. Produce the main answer from the research and plan. "
+        "You are the Writer Agent for the Multi Agent AI Collaboration Framework. Produce the main answer from the research and plan. "
         "Be clear, structured, relevant, and avoid unsupported claims."
     )
 
