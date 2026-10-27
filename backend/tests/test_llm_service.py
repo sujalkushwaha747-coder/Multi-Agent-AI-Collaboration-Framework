@@ -1,4 +1,5 @@
 import pytest
+import httpx
 
 from app.core.config import Settings
 from app.core.exceptions import LLMUnavailableError
@@ -73,3 +74,31 @@ async def test_missing_cloud_key_fails_before_network(monkeypatch):
     monkeypatch.setattr(service, "_generate_ollama", unexpected_ollama)
     with pytest.raises(LLMUnavailableError, match="GROQ_API_KEY"):
         await service.generate(system_prompt="system", user_prompt="task")
+
+
+@pytest.mark.asyncio
+async def test_real_http_fallback_sends_gateway_token(monkeypatch):
+    seen = []
+    token = "private-test-token-12345678901234567890"
+    service = OllamaLLMService(Settings(
+        _env_file=None, llm_provider="auto", groq_api_key="fake-groq-key",
+        ollama_api_key=token, ollama_base_url="https://demo.trycloudflare.com/",
+        ollama_fallback_enabled=True, ollama_retries=0,
+    ))
+
+    def respond(request):
+        seen.append(str(request.url))
+        if request.url.host == "api.groq.com":
+            return httpx.Response(429, json={"error": "rate limit"})
+        assert request.headers["authorization"] == f"Bearer {token}"
+        return httpx.Response(200, json={"response": "Ollama fallback answer"})
+
+    real_client = httpx.AsyncClient
+    monkeypatch.setattr(httpx, "AsyncClient", lambda **kw: real_client(transport=httpx.MockTransport(respond), **kw))
+    result = await service.generate(system_prompt="system", user_prompt="question")
+    assert result.text == "Ollama fallback answer"
+    assert result.metadata["provider"] == "ollama"
+    assert "429" in result.metadata["fallback_from_groq"]
+    assert seen[-1] == "https://demo.trycloudflare.com/api/generate"
+    health = await service._ollama_health()
+    assert health["available"] is True

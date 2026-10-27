@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     )
 
     ollama_base_url: str = "http://localhost:11434"
+    ollama_api_key: str | None = None
     ollama_model: str = "llama3:8b"
     ollama_temperature: float = 0.2
     ollama_max_tokens: int = 2048

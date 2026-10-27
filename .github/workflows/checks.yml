@@ -10,6 +10,18 @@ permissions:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: demo
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: shodhai_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U demo -d shodhai_ci"
+          --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,6 +36,14 @@ jobs:
         env:
           DATABASE_URL: "sqlite:///:memory:"
           EMBEDDING_PROVIDER: hashing
+      - name: Check PostgreSQL migrations and seed
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql+psycopg://demo:ci-only-password@localhost:5432/shodhai_ci
+        run: |
+          python -m alembic upgrade head
+          python -m app.database.run_seed
+          python -m app.database.run_seed
   frontend:
     runs-on: ubuntu-latest
     defaults:

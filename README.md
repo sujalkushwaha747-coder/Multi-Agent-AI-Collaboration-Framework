@@ -9,6 +9,8 @@ Both systems receive the same prompt. The backend records execution time, retrie
 
 ## Cloud deployment
 
+For the **free college/demo setup**, follow [Render Free + Neon PostgreSQL + local Ollama fallback](docs/FREE_DEPLOYMENT.md). Use `render.free.yaml` or its manual service settings. This includes a lightweight dependency profile and a token-protected Mac Ollama gateway. Experiment history persists in Neon; Knowledge Base uploads/index remain temporary on Render Free.
+
 See [the deployment guide](docs/DEPLOYMENT.md) for the Render backend and Vercel frontend setup. The root `render.yaml` configures a paid backend with persistent SQLite/uploads/index storage, Groq inference, production startup and readiness checks. Import the frontend separately in Vercel with Root Directory `frontend` and set `VITE_API_BASE_URL` to the deployed backend URL ending in `/api`. API keys are entered in the hosting dashboard, not committed to Git.
 
 ## Problem Statement

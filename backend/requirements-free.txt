@@ -1,0 +1,3 @@
+# Lightweight hosting: hashing embeddings + the existing NumPy vector-search fallback.
+# Do not install PyTorch, sentence-transformers or FAISS in this profile.
+-r requirements-base.txt

@@ -1,0 +1,41 @@
+# Free academic demo: external Neon PostgreSQL, ephemeral uploads/search index.
+# Select this file explicitly when creating a Render Blueprint.
+services:
+  - type: web
+    name: multi-agent-backend-free
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements-free.txt
+    startCommand: bash scripts/start_backend_production.sh
+    healthCheckPath: /api/health/ready
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: LLM_PROVIDER
+        value: auto
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-20b
+      - key: OLLAMA_FALLBACK_ENABLED
+        value: "true"
+      - key: OLLAMA_BASE_URL
+        sync: false
+      - key: OLLAMA_API_KEY
+        sync: false
+      - key: OLLAMA_MODEL
+        value: llama3:8b
+      - key: OLLAMA_TIMEOUT_SECONDS
+        value: "180"
+      - key: OLLAMA_RETRIES
+        value: "0"
+      - key: EMBEDDING_PROVIDER
+        value: hashing
+      - key: UPLOAD_DIR
+        value: /tmp/shodhai/uploads
+      - key: FAISS_INDEX_PATH
+        value: /tmp/shodhai/faiss

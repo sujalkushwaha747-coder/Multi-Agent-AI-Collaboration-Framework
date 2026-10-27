@@ -69,7 +69,10 @@ class OllamaLLMService:
     async def _ollama_health(self) -> dict:
         try:
             async with httpx.AsyncClient(timeout=5.0) as client:
-                response = await client.get(f"{self.settings.ollama_base_url}/api/tags")
+                response = await client.get(
+                    f"{self.settings.ollama_base_url.rstrip('/')}/api/tags",
+                    headers=self._ollama_headers(),
+                )
                 response.raise_for_status()
                 models = response.json().get("models", [])
                 model_names = [model.get("name") for model in models]
@@ -143,6 +146,11 @@ class OllamaLLMService:
 
     def _can_use_ollama(self) -> bool:
         return self.settings.llm_provider == "ollama" or self.settings.ollama_fallback_enabled
+
+    def _ollama_headers(self) -> dict[str, str]:
+        if self.settings.ollama_api_key:
+            return {"Authorization": f"Bearer {self.settings.ollama_api_key}"}
+        return {}
 
     async def _generate_groq(
         self,
@@ -223,7 +231,8 @@ class OllamaLLMService:
                     timeout=self.settings.ollama_timeout_seconds
                 ) as client:
                     response = await client.post(
-                        f"{self.settings.ollama_base_url}/api/generate",
+                        f"{self.settings.ollama_base_url.rstrip('/')}/api/generate",
+                        headers=self._ollama_headers(),
                         json=payload,
                     )
                     response.raise_for_status()
